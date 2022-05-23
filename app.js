@@ -183,6 +183,23 @@ app.get("/adminhome",function(req,res)
     
 
 });
+app.post("/adminsearch",function(req,res)
+{
+    var size=req.body.size;
+    var price1=req.body.price1;
+    var price2=req.body.price2;
+
+    console.log(size+""+price1+""+price2);
+    product.find({price:{$gte:price1,$lte:price2},size:size},function(err,found)
+    {
+        if(!err)
+        {
+            res.render("adminhome",{detail:found});
+        }
+    });
+
+});
+
 app.post("/addproduct",upload.single('file'),function (req,res)
 {
     const file=req.file;
